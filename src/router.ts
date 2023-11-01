@@ -17,7 +17,6 @@ export default class Router {
   constructor() {
     // @ts-ignore
     this.$appRoot = document.querySelector('.js__root');
-
     window.addEventListener('load', this.route.bind(this));
     window.addEventListener('hashchange', this.route.bind(this));
   }
@@ -28,7 +27,12 @@ export default class Router {
     // @ts-ignore
     const component = ROUTES[window.location.pathname] || notFoundComp;
 
-    component.attach(this.$appRoot);
-    component.render();
+    const int1 = setInterval(() => {
+      if (window.userId) {
+        component.attach(this.$appRoot);
+        component.render();
+        clearInterval(int1);
+      } 
+    }, 50);
   }
 }
